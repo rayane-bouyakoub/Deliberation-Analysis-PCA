@@ -1,0 +1,703 @@
+data <- data(, -c(1, 2, 5, 8, 11, 13, 15, 16, 17, 18, 19, 20, 21, 24, 26, 28, 30, 34, 35, 36, 37, 38, 39, 40, 41, 42 ,43, 44))
+data
+pv <- "PV_2CP_2021_ANNUEL.xlsx" # Le chemin du fichier qui contient le PV de délibération de la promotion 1CP 2021.
+data <- read_excel(pv)
+data
+data <- data[, -c(1, 2, 5, 8, 11, 13, 15, 16, 17, 18, 19, 20, 21, 24, 26, 28, 30, 34, 35, 36, 37, 38, 39, 40, 41, 42 ,43, 44)]
+data
+colnames(data)
+colnames(data) <- c('SFSD', 'ARCH2','ANA3', 'ALG3', 'ELEF2', 'PRST1', 'ANG2', 'ECON', 'POO', 'SINF', 'PRJP', 'PRST2', 'ANG3', 'ANA4', 'LOGM', 'OOE')
+colnames(data)
+PCA(data)
+data <- data[1:207, ]
+print(data, n=500)
+data <- rbind(data, bouyakoub_2CP)
+print(data, n=250)
+bouyakoub_2CP <- data.frame(#
+	'SFSD': 15.57,#
+	'ARCH2': 17.11,#
+	'ANA3': 16.59,#
+	'ALG3': 17.67,#
+	'ELEF2': 17.91,#
+	'PRST1': 18.13,#
+	'ANG2': 14.98,#
+	'ECON': 17.75,#
+	'POO': 16.40,#
+	'SINF': 16.96,#
+	'PRJP': 18.50,#
+	'PRST2': 18.88,#
+	'ANG3': 15.33,#
+	'ANA4': 17.68,#
+	'LOGM': 14.30,#
+	'OOE': 15.47 #
+)
+data <- rbind(data, bouyakoub_2CP)
+print(data, n=250)
+bouyakoub_2CP <- data.frame(#
+	'SFSD': 15.57,#
+	'ARCH2': 17.11,#
+	'ANA3': 16.59,#
+	'ALG3': 17.67,#
+	'ELEF2': 17.91,#
+	'PRST1': 18.13,#
+	'ANG2': 14.98,#
+	'ECON': 17.75,#
+	'POO': 16.40,#
+	'SINF': 16.96,#
+	'PRJP': 18.50,#
+	'PRST2': 18.88,#
+	'ANG3': 15.33,#
+	'ANA4': 17.68,#
+	'LOGM': 14.30,#
+	'OOE': 15.47 #
+)
+bouyakoub_2CP <- data.frame(#
+	SFSD= 15.57,#
+	ARCH2= 17.11,#
+	ANA3= 16.59,#
+	ALG3= 17.67,#
+	ELEF2= 17.91,#
+	PRST1= 18.13,#
+	ANG2= 14.98,#
+	ECON= 17.75,#
+	POO= 16.40,#
+	SINF=16.96,#
+	PRJP=18.50,#
+	PRST2=18.88,#
+	ANG3=15.33,#
+	ANA4=17.68,#
+	LOGM=14.30,#
+	OOE=15.47 #
+)
+data <- rbind(data, bouyakoub_2CP)
+print(data, n=250)
+pca_result <- PCA(data, ind.sup=208, graph = FALSE)
+fviz_pca_var(pca_result, col.var="black", repel = TRUE)
+fviz_contrib(pca_result, choice="var", axes=1)
+fviz_contrib(pca_result, choice="var", axes=2)
+pca_result
+pca_result$ind.sup$coord
+pca_result$ind.sup$coord[c(1),]
+fviz_pca_biplot(#
+  pca_result,#
+  geom = "point",           #
+  repel = TRUE,#
+  col.var = 'purple',         #
+) +#
+  # Attribuer une autre couleur et un label aux deux étudiants BOUYAKOUB et ABOUD.#
+  geom_point(data = data.frame(pca_result$ind.sup$coord)[c(1,), ],#
+             aes(x = Dim.1, y = Dim.2),#
+             color = "red", size = 2) +#
+  geom_text(data = data.frame(pca_result$ind$coord)[c(1, 3), ],#
+            aes(x = Dim.1, y = Dim.2, label = c("BOUYAKOUB")),#
+            color = "red", vjust = -1, size = 3)
+fviz_pca_biplot(#
+  pca_result,#
+  geom = "point",           #
+  repel = TRUE,#
+  col.var = 'purple',         #
+) +#
+  # Attribuer une autre couleur et un label aux deux étudiants BOUYAKOUB et ABOUD.#
+  geom_point(data = data.frame(pca_result$ind.sup$coord)[c(1), ],#
+             aes(x = Dim.1, y = Dim.2),#
+             color = "red", size = 2) +#
+  geom_text(data = data.frame(pca_result$ind$coord)[c(1, 3), ],#
+            aes(x = Dim.1, y = Dim.2, label = c("BOUYAKOUB")),#
+            color = "red", vjust = -1, size = 3)
+fviz_pca_biplot(#
+  pca_result,#
+  geom = "point",           #
+  repel = TRUE,#
+  col.var = 'purple',         #
+) +#
+  # Attribuer une autre couleur et un label aux deux étudiants BOUYAKOUB et ABOUD.#
+  geom_point(data = data.frame(pca_result$ind.sup$coord)[c(1), ],#
+             aes(x = Dim.1, y = Dim.2),#
+             color = "red", size = 2) +#
+  geom_text(data = data.frame(pca_result$ind.sup$coord)[c(1), ],#
+            aes(x = Dim.1, y = Dim.2, label = c("BOUYAKOUB")),#
+            color = "red", vjust = -1, size = 3)
+pv <- "PV_1CS_2021_ANNUEL.xlsx" # Le chemin du fichier qui contient le PV de délibération de la promotion 1CS 2021.#
+affectation_specs <- "LISTE_Affectations_2022.xlsx" # Le chemin du fichier qui contient l'affectation des étudiants de la promotion 1CS 2021 aux 4 spécialités (SID, SIQ, SIL, SIT)#
+# On combine les 4 feuilles de calcul dans un seul tableau.#
+sheet_names <- excel_sheets(affectation_specs)#
+list_of_dfs <- lapply(sheet_names, function(sheet) {#
+	read_excel(affectation_specs, sheet = sheet)#
+})#
+specs <- bind_rows(list_of_dfs)#
+# On effectue une jointure externe entre le PV de délibération et le tableau contenant l'affectation des étudiants aux 4 spécialités.#
+notes_etudiants <- read_excel(pv)#
+# 'all.y' pour inclure tous les étudiants, y compris les redoublants qui n'ont pas été affectés à une spécialité. by='Matricule' pour spécifier l'attribut utilisé pour effectuer la jointure.#
+data <- merge(specs, notes_etudiants, by="Matricule", all.y = TRUE) #
+# Restituer l'ordre initial (selon le rang annuel)#
+data <- data[order(data$Rang_annuel), ] #
+rownames(data) <- NULL
+cleaned_data <- data[, -c(1, 3, 6, 10, 12, 15, 16, 17, 18, 19, 20, 21, 24, 28, 30, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44)]
+data_to_analyze <- cleaned_data[-c(156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166),]
+bouyakoub <- data.frame(#
+	Spécialité = '2SD',#
+	SYS1 = 14.85,#
+	RES1 = 16.00,#
+	ANUM = 17.49,#
+	RO =  13.94,#
+	ORG =  13.25,#
+	LANG1 = 16.82,#
+	IGL = 16.36,#
+	THP = 14.70,#
+	MCSI = 11.47,#
+	BDD = 17.34,#
+	SEC = 17.68,#
+	CPROJ = 16.12,#
+	PROJ = 15.78,#
+	LANG2 = 16.50,#
+	ARCH =  17.56,#
+	SYS2 = 18.45,#
+	RES2 = 18.35#
+)#
+#
+aboud <- data.frame(#
+	Spécialité = '2SD',#
+	SYS1 = 16.40,#
+	RES1 = 16.62,#
+	ANUM = 16.18,#
+	RO =  17.10,#
+	ORG =  12.62,#
+	LANG1 = 16.82,#
+	IGL = 14.96,#
+	THP = 18.10,#
+	MCSI = 13.90,#
+	BDD = 12.88,#
+	SEC = 13.81,#
+	CPROJ = 13.12,#
+	PROJ = 15.78,#
+	LANG2 = 16.84,#
+	ARCH =  18.98,#
+	SYS2 = 16.50,#
+	RES2 = 16.58	#
+)
+data_to_analyze <- rbind(data_to_analyze, bouyakoub)
+data_to_analyze <- rbind(data_to_analyze, aboud)
+print(data_to_analyze, n=300)
+data_to_analyze
+print(data_to_analyze, n=200)
+pca_result <- PCA(data_to_analyze[,-1], graph = FALSE, ind.sup = 156:157)
+fviz_pca_biplot(pca_result, repel=TRUE, col.ind ="#696969", col.var="#2E9FDF")
+active_data <- data_to_analyze[1:155, ]#
+majors <- as.factor(active_data$Spécialité)#
+fviz_pca_biplot(pca_result,#
+                col.ind = majors,                #
+                label = "var",                          #
+                legend.title = "Spécialités",#
+                col.var = "grey",#
+                repel = TRUE)#
++#
+  # Attribuer une autre couleur et un label aux deux étudiants BOUYAKOUB et ABOUD.#
+  geom_point(data = data.frame(pca_result$ind.sup$coord)[c(1, 2), ],#
+             aes(x = Dim.1, y = Dim.2),#
+             color = "red", size = 2) +#
+  geom_text(data = data.frame(pca_result$ind.sup$coord)[c(1, 2), ],#
+            aes(x = Dim.1, y = Dim.2, label = c("BOUYAKOUB", "ABOUD")),#
+            color = "red", vjust = -1, size = 3)
+fviz_pca_biplot(pca_result,#
+                col.ind = majors,                #
+                label = "var",                          #
+                legend.title = "Spécialités",#
+                col.var = "grey",#
+                repel = TRUE) + #
+  # Attribuer une autre couleur et un label aux deux étudiants BOUYAKOUB et ABOUD.#
+  geom_point(data = data.frame(pca_result$ind.sup$coord)[c(1, 2), ],#
+             aes(x = Dim.1, y = Dim.2),#
+             color = "red", size = 2) +#
+  geom_text(data = data.frame(pca_result$ind.sup$coord)[c(1, 2), ],#
+            aes(x = Dim.1, y = Dim.2, label = c("BOUYAKOUB", "ABOUD")),#
+            color = "red", vjust = -1, size = 3)
+active_data <- data_to_analyze[1:155, ]#
+majors <- as.factor(active_data$Spécialité)#
+fviz_pca_biplot(pca_result,#
+                col.ind = majors,                #
+                label = "var",                          #
+                legend.title = "Spécialités",#
+                col.var = "grey",#
+                repel = TRUE)
+pv <- "PV_2CP_2021_ANNUEL.xlsx" # Le chemin du fichier qui contient le PV de délibération de la promotion 1CP 2021.#
+data <- read_excel(pv)
+data <- data[, -c(1, 2, 5, 8, 11, 13, 15, 16, 17, 18, 19, 20, 21, 24, 26, 28, 30, 34, 35, 36, 37, 38, 39, 40, 41, 42 ,43, 44)]
+colnames(data) <- c('SFSD', 'ARCH2','ANA3', 'ALG3', 'ELEF2', 'PRST1', 'ANG2', 'ECON', 'POO', 'SINF', 'PRJP', 'PRST2', 'ANG3', 'ANA4', 'LOGM', 'OOE')
+data <- data[1:207, ]
+bouyakoub_2CP <- data.frame(#
+	SFSD= 15.57,#
+	ARCH2= 17.11,#
+	ANA3= 16.59,#
+	ALG3= 17.67,#
+	ELEF2= 17.91,#
+	PRST1= 18.13,#
+	ANG2= 14.98,#
+	ECON= 17.75,#
+	POO= 16.40,#
+	SINF=16.96,#
+	PRJP=18.50,#
+	PRST2=18.88,#
+	ANG3=15.33,#
+	ANA4=17.68,#
+	LOGM=14.30,#
+	OOE=15.47 #
+)
+data <- rbind(data, bouyakoub_2CP)
+print(data, n=250)
+pca_result <- PCA(data, ind.sup=208, graph = FALSE)
+fviz_contrib(pca_result, choice="var", axes=1)
+fviz_pca_biplot(#
+  pca_result,#
+  geom = "point",           #
+  repel = TRUE,#
+  col.var = 'purple',         #
+) +#
+  # Attribuer une autre couleur et un label aux deux étudiants BOUYAKOUB et ABOUD.#
+  geom_point(data = data.frame(pca_result$ind.sup$coord)[c(1), ],#
+             aes(x = Dim.1, y = Dim.2),#
+             color = "red", size = 2) +#
+  geom_text(data = data.frame(pca_result$ind.sup$coord)[c(1), ],#
+            aes(x = Dim.1, y = Dim.2, label = c("BOUYAKOUB")),#
+            color = "red", vjust = -1, size = 3)
+pv <- "PV_2CP_2021_ANNUEL.xlsx" # Le chemin du fichier qui contient le PV de délibération de la promotion 1CP 2021.
+data <- read_excel(pv)
+data <- data[, -c(1, 2, 5, 8, 11, 13, 15, 16, 17, 18, 19, 20, 21, 24, 26, 28, 30, 34, 35, 36, 37, 38, 39, 40, 41, 42 ,43, 44)]
+colnames(data) <- c('SFSD', 'ARCH2','ANA3', 'ALG3', 'ELEF2', 'PRST1', 'ANG2', 'ECON', 'POO', 'SINF', 'PRJP', 'PRST2', 'ANG3', 'ANA4', 'LOGM', 'OOE')
+data <- data[1:207, ]
+bouyakoub_2CP <- data.frame(#
+	SFSD= 15.57,#
+	ARCH2= 17.11,#
+	ANA3= 16.59,#
+	ALG3= 17.67,#
+	ELEF2= 17.91,#
+	PRST1= 18.13,#
+	ANG2= 14.98,#
+	ECON= 17.75,#
+	POO= 16.40,#
+	SINF=16.96,#
+	PRJP=18.50,#
+	PRST2=18.88,#
+	ANG3=15.33,#
+	ANA4=17.68,#
+	LOGM=14.30,#
+	OOE=15.47 #
+)
+aboud_2CP <- data.frame(#
+	SFSD=16.35,#
+	ARCH2=16.28,#
+	ANA3=16.29,#
+	ALG3=14.00,#
+	ELEF2=16.50,#
+	PRST1=17.25,#
+	ANG2=14.82,#
+	ECON=14.88,#
+	POO=16.11,#
+	SINF=14.66,#
+	PRJP=18.50,#
+	PRST2=16.75,#
+	ANG3=15.75,#
+	ANA4=18.26,#
+	LOGM=14.85,#
+	OOE=16.25 #
+)
+data <- rbind(data, bouyakoub_2CP)
+data <- rbind(data, aboud_2CP)
+print(data, n=250)
+pca_result <- PCA(data, ind.sup=208:209, graph = FALSE)
+fviz_pca_biplot(#
+  pca_result,#
+  geom = "point",           #
+  repel = TRUE,#
+  col.var = 'purple',         #
+) +#
+  # Attribuer une autre couleur et un label aux deux étudiants BOUYAKOUB et ABOUD.#
+  geom_point(data = data.frame(pca_result$ind.sup$coord)[c(1,2), ],#
+             aes(x = Dim.1, y = Dim.2),#
+             color = "red", size = 2) +#
+  geom_text(data = data.frame(pca_result$ind.sup$coord)[c(1,2), ],#
+            aes(x = Dim.1, y = Dim.2, label = c("BOUYAKOUB","ABOUD")),#
+            color = "red", vjust = -1, size = 3)
+pca_result
+pca$ind.sup$cos2
+pca_result$ind.sup$cos2
+pca_result
+pv <- "PV_1CS_2021_ANNUEL.xlsx" # Le chemin du fichier qui contient le PV de délibération de la promotion 1CS 2021.
+affectation_specs <- "LISTE_Affectations_2022.xlsx" # Le chemin du fichier qui contient l'affectation des étudiants de la promotion 1CS 2021 aux 4 spécialités (SID, SIQ, SIL, SIT)
+sheet_names <- excel_sheets(affectation_specs)#
+list_of_dfs <- lapply(sheet_names, function(sheet) {#
+	read_excel(affectation_specs, sheet = sheet)#
+})#
+specs <- bind_rows(list_of_dfs)
+notes_etudiants <- read_excel(pv)
+data <- merge(specs, notes_etudiants, by="Matricule", all.y = TRUE)
+data <- data[order(data$Rang_annuel), ]
+rownames(data) <- NULL
+cleaned_data <- data[, -c(1, 3, 6, 10, 12, 15, 16, 17, 18, 19, 20, 21, 24, 28, 30, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44)]
+data_to_analyze <- cleaned_data[, -c(1)] # On supprime la colonne 'Spécialité', car on n'a pas besoin de cette dernière dans la première partie.
+pca_result <- PCA(data_to_analyze, graph = FALSE)
+data_to_analyze <- cleaned_data[-c(156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166),]
+pca_result <- PCA(data_to_analyze[,-1], graph = FALSE)
+fviz_eig(pca_result)
+fviz_eig(pca_result, addlabels = TRUE)
+bouyakoub <- data.frame(#
+	Spécialité = '2SD',#
+	SYS1 = 14.85,#
+	RES1 = 16.00,#
+	ANUM = 17.49,#
+	RO =  13.94,#
+	ORG =  13.25,#
+	LANG1 = 16.82,#
+	IGL = 16.36,#
+	THP = 14.70,#
+	MCSI = 11.47,#
+	BDD = 17.34,#
+	SEC = 17.68,#
+	CPROJ = 16.12,#
+	PROJ = 15.78,#
+	LANG2 = 16.50,#
+	ARCH =  17.56,#
+	SYS2 = 18.45,#
+	RES2 = 18.35#
+)
+aboud <- data.frame(#
+	Spécialité = '2SD',#
+	SYS1 = 16.40,#
+	RES1 = 16.62,#
+	ANUM = 16.18,#
+	RO =  17.10,#
+	ORG =  12.62,#
+	LANG1 = 16.82,#
+	IGL = 14.96,#
+	THP = 18.10,#
+	MCSI = 13.90,#
+	BDD = 12.88,#
+	SEC = 13.81,#
+	CPROJ = 13.12,#
+	PROJ = 15.78,#
+	LANG2 = 16.84,#
+	ARCH =  18.98,#
+	SYS2 = 16.50,#
+	RES2 = 16.58	#
+)
+data_to_analyze <- rbind(data_to_analyze, bouyakoub)
+data_to_analyze <- rbind(data_to_analyze, aboud)
+pca_result <- PCA(data_to_analyze[,-1], graph = FALSE, ind.sup = 156:157)
+fviz_pca_biplot(pca_result, repel=TRUE, col.ind ="#696969", col.var="#2E9FDF")
+pca_result$ind.sup$cos2
+pv <- "PV_1CP_2021_annuel.xlsx" # Le chemin du fichier qui contient le PV de délibération de la promotion 1CP 2021.
+data <- read_excel(pv)
+data <- data[, -c(1, 2, 6, 10, 12, 14, 15, 16, 17, 18, 19, 20, 23, 26, 29, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42)]
+data <- data[1:248, ]
+pca_result <- PCA(data, graph = FALSE)
+pca_result$ind.sup$cos2
+pca_result
+pca_result$ind$cos2
+pv <- "PV_1CS_2021_ANNUEL.xlsx" # Le chemin du fichier qui contient le PV de délibération de la promotion 1CS 2021.
+affectation_specs <- "LISTE_Affectations_2022.xlsx" # Le chemin du fichier qui contient l'affectation des étudiants de la promotion 1CS 2021 aux 4 spécialités (SID, SIQ, SIL, SIT)
+sheet_names <- excel_sheets(affectation_specs)#
+list_of_dfs <- lapply(sheet_names, function(sheet) {#
+	read_excel(affectation_specs, sheet = sheet)#
+})#
+specs <- bind_rows(list_of_dfs)
+notes_etudiants <- read_excel(pv)
+data <- merge(specs, notes_etudiants, by="Matricule", all.y = TRUE)
+data <- data[order(data$Rang_annuel), ]
+rownames(data) <- NULL
+cleaned_data <- data[, -c(1, 3, 6, 10, 12, 15, 16, 17, 18, 19, 20, 21, 24, 28, 30, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44)]
+data_to_analyze <- cleaned_data[, -c(1)] # On supprime la colonne 'Spécialité', car on n'a pas besoin de cette dernière dans la première partie.
+corr_matrix <- cor(data_to_analyze)
+col <- colorRampPalette(c("#BB4444", "#EE9988", "#FFFFFF", "#77AADD", "#4477AA"))#
+corrplot(corr_matrix, method="color", col=col(200),  #
+         type="upper", order="hclust", #
+         addCoef.col = "black", # Add coefficient of correlation#
+         tl.col="black", tl.srt=45, #Text label color and rotation#
+         # Combine with significance#
+         p.mat = p.mat, sig.level = 0.01, insig = "blank", #
+         # hide correlation coefficient on the principal diagonal#
+         diag=FALSE #
+         )
+col <- colorRampPalette(c("#BB4444", "#EE9988", "#FFFFFF", "#77AADD", "#4477AA"))#
+corrplot(corr_matrix, method="color", col=col(200),  #
+         type="upper", order="hclust", #
+         addCoef.col = "black", # Add coefficient of correlation#
+         tl.col="black", tl.srt=45, #Text label color and rotation#
+         # Combine with significance#
+		sig.level = 0.01, insig = "blank", #
+         # hide correlation coefficient on the principal diagonal#
+         diag=FALSE #
+         )
+pv <- "PV_1CP_2021_annuel.xlsx" # Le chemin du fichier qui contient le PV de délibération de la promotion 1CP 2021.
+data <- read_excel(pv)
+data <- data[, -c(1, 2, 6, 10, 12, 14, 15, 16, 17, 18, 19, 20, 23, 26, 29, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42)]
+data <- data[1:248, ]
+pca_result <- PCA(data, graph = FALSE)
+fviz_pca_ind(pca_result, col.ind ="cos2", gradient.cols=c("#00AFBB","#E7B800","#FC4E07"), repel = TRUE)
+library(readxl)
+library(dplyr)
+library(corrplot)
+library(FactoMineR)
+library(ggplot2)
+library(factoextra)
+pv <- "PV_1CS_2021_ANNUEL.xlsx" # Le chemin du fichier qui contient le PV de délibération de la promotion 1CS 2021.
+affectation_specs <- "LISTE_Affectations_2022.xlsx" # Le chemin du fichier qui contient l'affectation des étudiants de la promotion 1CS 2021 aux 4 spécialités (SID, SIQ, SIL, SIT)
+sheet_names <- excel_sheets(affectation_specs)#
+list_of_dfs <- lapply(sheet_names, function(sheet) {#
+	read_excel(affectation_specs, sheet = sheet)#
+})#
+specs <- bind_rows(list_of_dfs)
+notes_etudiants <- read_excel(pv)
+data <- merge(specs, notes_etudiants, by="Matricule", all.y = TRUE)
+data <- data[order(data$Rang_annuel), ]
+rownames(data) <- NULL
+data
+colnames(data)
+cleaned_data <- data[, -c(1, 3, 6, 10, 12, 15, 16, 17, 18, 19, 20, 21, 24, 28, 30, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44)]
+cleaned_data
+data_to_analyze <- cleaned_data[, -c(1)] # On supprime la colonne 'Spécialité', car on n'a pas besoin de cette dernière dans la première partie.
+corr_matrix <- cor(data_to_analyze)
+corr_matrix
+corrplot(corr_matrix, type='upper')
+pca_result <- PCA(data_to_analyze, graph = FALSE)
+pca_result$eig
+fviz_eig(pca_result, addlabels=TRUE)
+corrplot(get_pca_var(pca_result)$cos2, is.corr=FALSE)
+fviz_cos2(pca_result, choice="var", axes=1:2)
+fviz_pca_var(pca_result, col.var ="cos2", gradient.cols=c("#00AFBB","#E7B800","#FC4E07"), repel = TRUE)
+fviz_pca_var(pca_result, col.var="black", repel = TRUE)
+pca_result$var$coord # Pour avoir la projection des variables
+pca_result$var$contrib # Pour avoir les contributions absolues des variables aux différents axes.
+fviz_contrib(pca_result, choice="var", axes=1)
+fviz_contrib(pca_result, choice="var", axes=2)
+fviz_pca_var(pca_result, col.var ="cos2", gradient.cols=c("#00AFBB","#E7B800","#FC4E07"), repel = TRUE)
+fviz_pca_ind(pca_result, col.ind ="cos2", gradient.cols=c("#00AFBB","#E7B800","#FC4E07"), repel = TRUE)
+fviz_pca_biplot(pca_result, repel=TRUE, col.ind ="#696969", col.var="#2E9FDF")
+contrib_axis_1 <- pca_result$ind$contrib[, 1]
+fviz_pca_ind(pca_result, col.ind=contrib_axis_1, gradient.cols=c("#00AFBB","#E7B800","#FC4E07"), repel = TRUE) + labs(color = "Contrib to Dim1")
+fviz_contrib(pca_result, choice="ind", axes=1, top = 40) #On limite le nombre d'individus à 40 pour avoir une visualisation lisible.
+fviz_pca_ind(pca_result, col.ind=contrib_axis_1, gradient.cols=c("#00AFBB","#E7B800","#FC4E07"), repel = TRUE) + labs(color = "Contrib to Dim1")
+pca_result
+pca_result$ind
+pca_result
+pca_result$ind$coord
+contrib_axis_2 <- pca_result$ind$contrib[, 2]
+fviz_pca_ind(pca_result, col.ind=contrib_axis_2, gradient.cols=c("#00AFBB","#E7B800","#FC4E07"), repel = TRUE) + labs(color = "Contrib to Dim2")
+fviz_contrib(pca_result, choice="ind", axes=2, top = 50) #On limite le nombre d'individus à 40 pour avoir une visualisation lisible.
+fviz_pca_biplot(pca_result, repel=TRUE, col.ind ="cos2", gradient.cols=c("#00AFBB","#E7B800","#FC4E07"), col.var="#2E9FDF")
+fviz_pca_ind(pca_result, col.ind ="cos2", gradient.cols=c("#00AFBB","#E7B800","#FC4E07"), repel = TRUE)
+fviz_cos2(pca_result, choice="ind", axes=1:2, top = 50)
+fviz_pca_ind(pca_result, col.ind ="cos2", gradient.cols=c("#00AFBB","#E7B800","#FC4E07"), repel = TRUE)
+data_to_analyze <- cleaned_data[-c(156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166),]
+data_to_analyze
+corr_matrix <- cor(data_to_analyze[, -c(1)])
+corr_matrix
+corrplot(corr_matrix, type='upper')
+pca_result <- PCA(data_to_analyze[,-1], graph = FALSE)
+pca_result$eig
+fviz_eig(pca_result, addlabels = TRUE)
+fviz_cos2(pca_result, choice="var", axes=1:2)
+corrplot(get_pca_var(pca_result)$cos2, is.corr=FALSE)
+fviz_pca_var(pca_result, col.var="black", repel = TRUE)
+fviz_pca_var(pca_result, col.var ="cos2", gradient.cols=c("#00AFBB","#E7B800","#FC4E07"), repel = TRUE)
+pca_result$var$coord # Pour avoir la projection des variables
+pca_result$var$contrib # Pour avoir les contributions absolues des variables aux différents axes.
+fviz_contrib(pca_result, choice="var", axes=1)
+fviz_contrib(pca_result, choice="var", axes=2)
+fviz_pca_var(pca_result, col.var="black", repel = TRUE)
+fviz_pca_biplot(pca_result, repel=TRUE, col.ind ="#696969", col.var="#2E9FDF")
+contrib_axis_1 <- pca_result$ind$contrib[, 1]
+fviz_pca_ind(pca_result, col.ind=contrib_axis_1, gradient.cols=c("#00AFBB","#E7B800","#FC4E07"), repel = TRUE) + labs(color = "Contrib to Dim1")
+fviz_contrib(pca_result, choice="ind", axes=1, top = 50) #On limite le nombre d'individus à 70 pour avoir une visualisation lisible.
+pca_result$ind$coord
+contrib_axis_2 <- pca_result$ind$contrib[, 2]
+fviz_pca_ind(pca_result, col.ind=contrib_axis_2, gradient.cols=c("#00AFBB","#E7B800","#FC4E07"), repel = TRUE) + labs(color = "Contrib to Dim2")
+fviz_contrib(pca_result, choice="ind", axes=2, top = 50) #On limite le nombre d'individus à 40 pour avoir une visualisation lisible.
+pca_result$ind$coord
+fviz_pca_ind(pca_result, col.ind=contrib_axis_2, gradient.cols=c("#00AFBB","#E7B800","#FC4E07"), repel = TRUE) + labs(color = "Contrib to Dim2")
+fviz_contrib(pca_result, choice="ind", axes=2, top = 50) #On limite le nombre d'individus à 40 pour avoir une visualisation lisible.
+fviz_pca_ind(pca_result, col.ind=contrib_axis_2, gradient.cols=c("#00AFBB","#E7B800","#FC4E07"), repel = TRUE) + labs(color = "Contrib to Dim2")
+fviz_pca_biplot(pca_result, repel=TRUE, col.ind ="cos2", gradient.cols=c("#00AFBB","#E7B800","#FC4E07"), col.var="#2E9FDF")
+fviz_pca_ind(pca_result, col.ind ="cos2", gradient.cols=c("#00AFBB","#E7B800","#FC4E07"), repel = TRUE)
+fviz_cos2(pca_result, choice="ind", axes=1:2, top = 50)
+fviz_pca_ind(pca_result, col.ind ="cos2", gradient.cols=c("#00AFBB","#E7B800","#FC4E07"), repel = TRUE)
+bouyakoub <- data.frame(#
+	Spécialité = '2SD',#
+	SYS1 = 14.85,#
+	RES1 = 16.00,#
+	ANUM = 17.49,#
+	RO =  13.94,#
+	ORG =  13.25,#
+	LANG1 = 16.82,#
+	IGL = 16.36,#
+	THP = 14.70,#
+	MCSI = 11.47,#
+	BDD = 17.34,#
+	SEC = 17.68,#
+	CPROJ = 16.12,#
+	PROJ = 15.78,#
+	LANG2 = 16.50,#
+	ARCH =  17.56,#
+	SYS2 = 18.45,#
+	RES2 = 18.35#
+)#
+#
+aboud <- data.frame(#
+	Spécialité = '2SD',#
+	SYS1 = 16.40,#
+	RES1 = 16.62,#
+	ANUM = 16.18,#
+	RO =  17.10,#
+	ORG =  12.62,#
+	LANG1 = 16.82,#
+	IGL = 14.96,#
+	THP = 18.10,#
+	MCSI = 13.90,#
+	BDD = 12.88,#
+	SEC = 13.81,#
+	CPROJ = 13.12,#
+	PROJ = 15.78,#
+	LANG2 = 16.84,#
+	ARCH =  18.98,#
+	SYS2 = 16.50,#
+	RES2 = 16.58	#
+)
+data_to_analyze <- rbind(data_to_analyze, bouyakoub)
+data_to_analyze <- rbind(data_to_analyze, aboud)
+data_to_analyze
+pca_result <- PCA(data_to_analyze[,-1], graph = FALSE, ind.sup = 156:157)
+fviz_pca_biplot(pca_result, repel=TRUE, col.ind ="#696969", col.var="#2E9FDF")
+pca_result$ind.sup$cos2
+active_data <- data_to_analyze[1:155, ]#
+majors <- as.factor(active_data$Spécialité)#
+fviz_pca_biplot(pca_result,#
+                col.ind = majors,                #
+                label = "var",                          #
+                legend.title = "Spécialités",#
+                col.var = "grey",#
+                repel = TRUE)
+target_major <- "2SD"#
+filtered_colors <- ifelse(majors == target_major, "red", "transparent")#
+fviz_pca_biplot(pca_result,#
+                col.ind = filtered_colors,  #
+                label = "var",              #
+                col.var = "grey",         #
+                repel = TRUE) +#
+  scale_color_manual(values = c("red", "transparent"))  + theme(legend.position = "none")
+target_major <- "2SQ"#
+filtered_colors <- ifelse(majors == target_major, "orange", "transparent")#
+fviz_pca_biplot(pca_result,#
+                col.ind = filtered_colors,  #
+                label = "var",            #
+                col.var = "grey",       #
+                repel = TRUE) +#
+  scale_color_manual(values = c("orange", "transparent"))  + theme(legend.position = "none")
+target_major <- "2SL"#
+filtered_colors <- ifelse(majors == target_major, "green", "transparent")#
+fviz_pca_biplot(pca_result,#
+                col.ind = filtered_colors,  #
+                label = "var",              #
+                col.var = "grey",          #
+                repel = TRUE) +#
+  scale_color_manual(values = c("green", "transparent"))  + theme(legend.position = "none")
+target_major <- "2ST"#
+filtered_colors <- ifelse(majors == target_major, "purple", "transparent")#
+fviz_pca_biplot(pca_result,#
+                col.ind = filtered_colors,   # Colors for individuals#
+                label = "var",              # Display variable names#
+                col.var = "grey",           # Color for variables#
+                repel = TRUE) +#
+  scale_color_manual(values = c("purple", "transparent"))  + theme(legend.position = "none")
+active_data <- data_to_analyze[1:155, ]#
+majors <- as.factor(active_data$Spécialité)#
+fviz_pca_biplot(pca_result,#
+                col.ind = majors,                #
+                label = "var",                          #
+                legend.title = "Spécialités",#
+                col.var = "grey",#
+                repel = TRUE)
+pv <- "PV_1CP_2021_annuel.xlsx" # Le chemin du fichier qui contient le PV de délibération de la promotion 1CP 2021.
+data <- read_excel(pv)
+colnames(data)
+data <- data[, -c(1, 2, 6, 10, 12, 14, 15, 16, 17, 18, 19, 20, 23, 26, 29, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42)]
+data <- data[1:248, ]
+pca_result <- PCA(data, graph = FALSE)
+fviz_pca_var(pca_result, col.var="black", repel = TRUE)
+fviz_contrib(pca_result, choice="var", axes=1)
+fviz_contrib(pca_result, choice="var", axes=2)
+fviz_pca_var(pca_result, col.var="black", repel = TRUE)
+fviz_pca_biplot(#
+  pca_result,#
+  geom = "point",           #
+  repel = TRUE,#
+  col.var = 'purple',         #
+) +#
+  # Attribuer une autre couleur et un label aux deux étudiants BOUYAKOUB et ABOUD.#
+  geom_point(data = data.frame(pca_result$ind$coord)[c(1, 3), ],#
+             aes(x = Dim.1, y = Dim.2),#
+             color = "red", size = 2) +#
+  geom_text(data = data.frame(pca_result$ind$coord)[c(1, 3), ],#
+            aes(x = Dim.1, y = Dim.2, label = c("BOUYAKOUB", "ABOUD")),#
+            color = "red", vjust = -1, size = 3)
+pv <- "PV_2CP_2021_ANNUEL.xlsx" # Le chemin du fichier qui contient le PV de délibération de la promotion 1CP 2021.
+data <- read_excel(pv)
+data <- data[, -c(1, 2, 5, 8, 11, 13, 15, 16, 17, 18, 19, 20, 21, 24, 26, 28, 30, 34, 35, 36, 37, 38, 39, 40, 41, 42 ,43, 44)]
+colnames(data)
+colnames(data) <- c('SFSD', 'ARCH2','ANA3', 'ALG3', 'ELEF2', 'PRST1', 'ANG2', 'ECON', 'POO', 'SINF', 'PRJP', 'PRST2', 'ANG3', 'ANA4', 'LOGM', 'OOE')
+colnames(data)
+data <- data[1:207, ]
+bouyakoub_2CP <- data.frame(#
+	SFSD= 15.57,#
+	ARCH2= 17.11,#
+	ANA3= 16.59,#
+	ALG3= 17.67,#
+	ELEF2= 17.91,#
+	PRST1= 18.13,#
+	ANG2= 14.98,#
+	ECON= 17.75,#
+	POO= 16.40,#
+	SINF=16.96,#
+	PRJP=18.50,#
+	PRST2=18.88,#
+	ANG3=15.33,#
+	ANA4=17.68,#
+	LOGM=14.30,#
+	OOE=15.47 #
+)
+aboud_2CP <- data.frame(#
+	SFSD=16.35,#
+	ARCH2=16.28,#
+	ANA3=16.29,#
+	ALG3=14.00,#
+	ELEF2=16.50,#
+	PRST1=17.25,#
+	ANG2=14.82,#
+	ECON=14.88,#
+	POO=16.11,#
+	SINF=14.66,#
+	PRJP=18.50,#
+	PRST2=16.75,#
+	ANG3=15.75,#
+	ANA4=18.26,#
+	LOGM=14.85,#
+	OOE=16.25 #
+)
+data <- rbind(data, bouyakoub_2CP)
+data <- rbind(data, aboud_2CP)
+print(data, n=250)
+pca_result <- PCA(data, ind.sup=208:209, graph = FALSE)
+fviz_pca_var(pca_result, col.var="black", repel = TRUE)
+fviz_contrib(pca_result, choice="var", axes=1)
+fviz_contrib(pca_result, choice="var", axes=2)
+fviz_pca_var(pca_result, col.var="black", repel = TRUE)
+fviz_pca_biplot(#
+  pca_result,#
+  geom = "point",           #
+  repel = TRUE,#
+  col.var = 'purple',         #
+) +#
+  # Attribuer une autre couleur et un label aux deux étudiants BOUYAKOUB et ABOUD.#
+  geom_point(data = data.frame(pca_result$ind.sup$coord)[c(1,2), ],#
+             aes(x = Dim.1, y = Dim.2),#
+             color = "red", size = 2) +#
+  geom_text(data = data.frame(pca_result$ind.sup$coord)[c(1,2), ],#
+            aes(x = Dim.1, y = Dim.2, label = c("BOUYAKOUB","ABOUD")),#
+            color = "red", vjust = -1, size = 3)
